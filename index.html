@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseGrid — Infrastructure monitoring that never blinks</title>
+<meta name="description" content="PulseGrid is a lightweight uptime and error monitoring dashboard for small teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <div class="brand">
+      <span class="brand__mark">◍</span>
+      <span class="brand__name">PulseGrid</span>
+    </div>
+    <nav class="nav">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#monitors">Monitors</a>
+      <a href="#incidents">Incidents</a>
+    </nav>
+    <div class="status-pill" id="globalStatus">
+      <span class="status-dot status-dot--up"></span>
+      <span>All systems operational</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero__copy">
+      <p class="eyebrow">Uptime & error monitoring</p>
+      <h1>Know the instant<br>something breaks.</h1>
+      <p class="hero__sub">PulseGrid watches your endpoints every 30 seconds and puts uptime, latency, and errors on one screen — so your team hears about outages before your users do.</p>
+      <div class="hero__actions">
+        <a href="#monitors" class="btn btn--primary">Add a monitor</a>
+        <a href="#dashboard" class="btn btn--ghost">View live demo</a>
+      </div>
+      <p class="hero__meta">No credit card. Deployed on a static, pay-as-you-go stack.</p>
+    </div>
+    <div class="hero__pulse" aria-hidden="true">
+      <svg id="pulseSvg" viewBox="0 0 520 200" preserveAspectRatio="none">
+        <line x1="0" y1="100" x2="520" y2="100" class="pulse-grid-line"></line>
+        <path id="pulsePath" class="pulse-path" d=""></path>
+      </svg>
+      <div class="pulse-readout">
+        <span id="pulseValue">142</span><span class="pulse-unit">ms</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="metrics" id="dashboard">
+    <div class="metric-card">
+      <p class="metric-label">Overall uptime</p>
+      <p class="metric-value" id="mUptime">99.97%</p>
+      <p class="metric-note">last 30 days</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Avg response time</p>
+      <p class="metric-value" id="mLatency">138 ms</p>
+      <p class="metric-note">rolling 5 min</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Active incidents</p>
+      <p class="metric-value" id="mIncidents">0</p>
+      <p class="metric-note">across all monitors</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Monitors</p>
+      <p class="metric-value" id="mCount">4</p>
+      <p class="metric-note">checked every 30s</p>
+    </div>
+  </section>
+
+  <section class="monitors" id="monitors">
+    <div class="section-head">
+      <h2>Monitors</h2>
+      <button class="btn btn--primary btn--small" id="openAddMonitor">+ Add monitor</button>
+    </div>
+    <div class="monitor-grid" id="monitorGrid">
+      <!-- monitor cards injected by script.js -->
+    </div>
+  </section>
+
+  <section class="add-monitor" id="addMonitorForm" hidden>
+    <div class="add-monitor__panel">
+      <h3>Add a monitor</h3>
+      <p class="add-monitor__sub">This demo checks are simulated client-side — enough to show how a real check-in would slot into the grid.</p>
+      <form id="monitorForm">
+        <label>
+          Name
+          <input type="text" id="monitorName" placeholder="e.g. Payments API" required>
+        </label>
+        <label>
+          URL to watch
+          <input type="url" id="monitorUrl" placeholder="https://api.innovartus.io/health" required>
+        </label>
+        <div class="add-monitor__actions">
+          <button type="submit" class="btn btn--primary">Save monitor</button>
+          <button type="button" class="btn btn--ghost" id="cancelAddMonitor">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="incidents" id="incidents">
+    <div class="section-head">
+      <h2>Incident log</h2>
+      <p class="section-sub">A record of what broke, and how long it took to notice.</p>
+    </div>
+    <ol class="incident-log" id="incidentLog">
+      <!-- incidents injected by script.js -->
+    </ol>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="brand brand--small">
+      <span class="brand__mark">◍</span>
+      <span class="brand__name">PulseGrid</span>
+    </div>
+    <p>Built as a static site — deployable on any pay-as-you-go host with zero idle cost.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
